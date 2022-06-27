@@ -4,7 +4,7 @@
 This repository contains the implementation of [Open-Vocabulary Instance Segmentation via Robust Cross-Modal Pseudo-Labeling](https://openaccess.thecvf.com/content/CVPR2022/papers/Huynh_Open-Vocabulary_Instance_Segmentation_via_Robust_Cross-Modal_Pseudo-Labeling_CVPR_2022_paper.pdf).
 > In this work, we address open-vocabulary instance segmentation, which learn to segment novel objects without any mask annotation during training by generating pseudo masks based on captioned images.
 
-![Image](https://github.com/hbdat/cvpr20_LESA/raw/master/fig/schematic_figure.png)
+![Image](https://raw.githubusercontent.com/hbdat/cvpr22_cross_modal_pseudo_labeling/main/fig/schematic_figure.png)
 
 ---
 ## Notes
