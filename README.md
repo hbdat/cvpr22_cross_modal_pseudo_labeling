@@ -57,6 +57,11 @@ Please notice that the teacher must be trained first in order to produce pseudo 
 
 + Caption pretraining:
   + Please download the pretrained backbone model from [here](https://drive.google.com/file/d/1mFnAZVnn2NT2Ys841EPOMaQ6jnvFXPWJ/view?usp=sharing) into the folder `./model_weights`. This model is from the [OVR](https://github.com/alirezazareian/ovr-cnn) code base.
+  + Alternatively, you can pretrain the model with:
+
+```
+python -m torch.distributed.launch --nproc_per_node=8 tools/train_net.py --config-file configs/coco_cap_det/mmss.yaml --skip-test OUTPUT_DIR ./model_weights/model_pretrained.pth
+```
 
 + Teacher training:
 ```
