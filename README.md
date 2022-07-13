@@ -8,13 +8,14 @@ This repository contains the implementation of [Open-Vocabulary Instance Segment
 
 ---
 ## Installation
-Our code is based upon [OVR](https://github.com/alirezazareian/ovr-cnn), which is built upon [mask-rcnn benchmark] (https://github.com/facebookresearch/maskrcnn-benchmark).
+Our code is based upon [OVR](https://github.com/alirezazareian/ovr-cnn), which is built upon [mask-rcnn benchmark](https://github.com/facebookresearch/maskrcnn-benchmark).
 To setup the code, please follow the instruction within [INSTALL.md](https://github.com/hbdat/cvpr22_cross_modal_pseudo_labeling/blob/main/INSTALL.md).
 
 ---
 ## Datasets
 To download the datasets, please follow the below instructions.
-For more information the data directory is structured, please refer to [maskrcnn_benchmark/config/paths_catalog.py](https://github.com/hbdat/cvpr22_cross_modal_pseudo_labeling/blob/main/maskrcnn_benchmark/config/paths_catalog.py)
+
+For more information the data directory is structured, please refer to [maskrcnn_benchmark/config/paths_catalog.py](https://github.com/hbdat/cvpr22_cross_modal_pseudo_labeling/blob/main/maskrcnn_benchmark/config/paths_catalog.py).
 
 ### MS-COCO
 + Please download the MS-COCO 2017 dataset into `./datasets/coco/` folder from its official website: [https://cocodataset.org/#download](https://cocodataset.org/#download).
