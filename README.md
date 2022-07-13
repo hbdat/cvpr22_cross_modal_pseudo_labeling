@@ -70,7 +70,7 @@ python -m torch.distributed.launch --nproc_per_node=8 tools/train_net.py --confi
 
 + Student training:
 ```
-python -m torch.distributed.launch --nproc_per_node=8 tools/train_net.py --config-file configs/coco_cap_det/student_teacher_mask_rcnn_uncertainty.yaml OUTPUT_DIR ./checkpoint/mscoco_student/ MODEL.WEIGHT ./checkpoint/mscoco_student/model_final.pth
+python -m torch.distributed.launch --nproc_per_node=8 tools/train_net.py --config-file configs/coco_cap_det/student_teacher_mask_rcnn_uncertainty.yaml OUTPUT_DIR ./checkpoint/mscoco_student/ MODEL.WEIGHT ./checkpoint/mscoco_teacher/model_final.pth
 ```
 
 + Evaluation
