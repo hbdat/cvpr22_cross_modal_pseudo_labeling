@@ -17,14 +17,32 @@ To download the datasets, please follow the below instructions.
 For more information the data directory is structured, please refer to [maskrcnn_benchmark/config/paths_catalog.py](https://github.com/hbdat/cvpr22_cross_modal_pseudo_labeling/blob/main/maskrcnn_benchmark/config/paths_catalog.py)
 
 ### MS-COCO
-+ Please download the MS-COCO 2017 dataset from its [official website](https://cocodataset.org/#download).
-+ Following prior works, the data is partitioned into base and target classes based on the following script:
++ Please download the MS-COCO 2017 dataset into `./datasets/coco/` folder from its official website: [https://cocodataset.org/#download](https://cocodataset.org/#download).
++ Following prior works, the data is partitioned into base and target classes via:
 
 ```
-python ./preprocess/construct_ms_coco_annotations.py
+python ./preprocess/coco/construct_coco_json.py
 ```  
 
 ### Open Images & Conceptual Captions
++ Please download the correspond datasets from:
+	+ Open Images:			[https://github.com/cvdfoundation/open-images-dataset#download-images-with-bounding-boxes-annotations](https://github.com/cvdfoundation/open-images-dataset#download-images-with-bounding-boxes-annotations)
+	+ Conceptual Captions:	[https://ai.google.com/research/ConceptualCaptions/download](https://ai.google.com/research/ConceptualCaptions/download)
++ Please extract the corresponding datasets into `./datasets/conceptual/` and `./datasets/openimages/` folder.
+
+#### Annotations for Open Images
++ Convert annotation format of Open Images to COCO format (json):
+```
+cd ./preprocess/openimages/openimages2coco
+python convert_annotations.py -p ../../../datasets/openimages/ --version challenge_2019 --task mask --subsets train
+python convert_annotations.py -p ../../../datasets/openimages/ --version challenge_2019 --task mask --subsets val
+```
++ Partition all classes into base and target classes:
+```
+python ./preprocess/openimages/construct_openimages_json.py
+```
+
+#### Annotations for Conceptual Captions
 ```
 Coming Soon!
 ```
@@ -37,27 +55,52 @@ Please notice that the teacher must be trained first in order to produce pseudo 
 ### MS-COCO
 
 + Caption pretraining:
-Please download the pretrained backbone model from [here](https://drive.google.com/file/d/1mFnAZVnn2NT2Ys841EPOMaQ6jnvFXPWJ/view?usp=sharing) into the folder `./model_weights`. This model is from the [OVR](https://github.com/alirezazareian/ovr-cnn) code base.
+  + Please download the pretrained backbone model from [here](https://drive.google.com/file/d/1mFnAZVnn2NT2Ys841EPOMaQ6jnvFXPWJ/view?usp=sharing) into the folder `./model_weights`. This model is from the [OVR](https://github.com/alirezazareian/ovr-cnn) code base.
 
 + Teacher training:
 ```
-python -m torch.distributed.launch --nproc_per_node=8 tools/train_net.py --config-file configs/coco_cap_det/zeroshot_mask.yaml OUTPUT_DIR ./checkpoint/mscoco_teacher/ MODEL.WEIGHT ./model_weights/model_final.pth
+python -m torch.distributed.launch --nproc_per_node=8 tools/train_net.py --config-file configs/coco_cap_det/zeroshot_mask.yaml OUTPUT_DIR ./checkpoint/mscoco_teacher/ MODEL.WEIGHT ./model_weights/model_pretrained.pth
 ```
 
 + Student training:
 ```
-python -m torch.distributed.launch --nproc_per_node=8 tools/train_net.py --config-file configs/coco_cap_det/student_teacher_mask_rcnn_uncertainty.yaml OUTPUT_DIR ./checkpoint/mscoco_student/ MODEL.WEIGHT ./checkpoint/mscoco_teacher/model_final.pth
+python -m torch.distributed.launch --nproc_per_node=8 tools/train_net.py --config-file configs/coco_cap_det/student_teacher_mask_rcnn_uncertainty.yaml OUTPUT_DIR ./checkpoint/mscoco_student/ MODEL.WEIGHT ./checkpoint/mscoco_student/model_final.pth
+```
+
++ Evaluation
+  + To quickly evaluate the performance, we provide pretrained student/teacher model in [Pretrained Models](https://github.com/hbdat/cvpr22_cross_modal_pseudo_labeling/edit/main/README.md#pretrained-models). Please download them into `./pretrained_model/` folder and run the following script:
+```
+python -m torch.distributed.launch --nproc_per_node=8 tools/test_net.py --config-file configs/coco_cap_det/student_teacher_mask_rcnn_uncertainty.yaml OUTPUT_DIR ./results/mscoco_student MODEL.WEIGHT ./pretrained_model/coco_student/model_final.pth
 ```
 
 ### Open Images & Conceptual Captions
+
++ Caption pretraining:
+```
+Coming Soon!
+```
+
++ Teacher training:
+```
+Coming Soon!
+```
+
++ Student training:
+```
+Coming Soon!
+```
+
++ Evaluation
 ```
 Coming Soon!
 ```
 
 ## Pretrained Models
-```
-Coming Soon!
-```
+
+| Dataset                       | Teacher | Student |
+|-------------------------------|---------|---------|
+| MS-COCO                       |  [model](https://drive.google.com/file/d/1KGnURlIlZfkW1N2_TMHrY81YN5WMzO_J/view?usp=sharing)  |  [model](https://drive.google.com/file/d/12BGwgV1wPyO_2xeAhLGxN2elBqc8v247/view?usp=sharing)  |
+| Conceptual Caps + Open Images |  [model]()  |  [model]()  |
 
 ---
 ## Citation
