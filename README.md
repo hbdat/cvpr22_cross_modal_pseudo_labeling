@@ -74,7 +74,7 @@ python -m torch.distributed.launch --nproc_per_node=8 tools/train_net.py --confi
 ```
 
 + Evaluation
-  + To quickly evaluate the performance, we provide pretrained student/teacher model in [Pretrained Models](https://github.com/hbdat/cvpr22_cross_modal_pseudo_labeling/edit/main/README.md#pretrained-models). Please download them into `./pretrained_model/` folder and run the following script:
+  + To quickly evaluate the performance, we provide pretrained student/teacher model in [Pretrained Models](https://github.com/hbdat/cvpr22_cross_modal_pseudo_labeling#pretrained-models). Please download them into `./pretrained_model/` folder and run the following script:
 ```
 python -m torch.distributed.launch --nproc_per_node=8 tools/test_net.py --config-file configs/coco_cap_det/student_teacher_mask_rcnn_uncertainty.yaml OUTPUT_DIR ./results/mscoco_student MODEL.WEIGHT ./pretrained_model/coco_student/model_final.pth
 ```
