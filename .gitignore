@@ -32,7 +32,6 @@ dist/
 .DS_Store
 
 # project dirs
-/datasets
 /models
 /output
 
